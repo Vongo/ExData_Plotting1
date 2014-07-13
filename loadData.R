@@ -1,3 +1,12 @@
+# This functions deals with the data :
+# - Downloading
+# - Unzipping
+# - Reading
+# - Filtering
+
+#  I decided not to read just a specific range because in the real world, we'll have to deal with much bigger files 
+# and won't be able to read it manually (ocularly ?) to check what to read.
+
 # You might have to uncomment the following in order to run the code.
 # install.packages('downloader')
 
@@ -15,12 +24,11 @@ END_DATE = as.Date("02/02/2007", format="%d/%m/%Y")
 
 load.data <- function() {
 	
-
 	# Download the data from distant repo if the proper file/zip is not in the working directory
 	if(sum(grepl(FILE_NAME, list.files("."))) == 0){
 		if(sum(grepl(ZIP_NAME, list.files("."))) == 0){
-			tmp <- tempfile(fileext = ".zip")
 			require(downloader)
+			tmp <- tempfile(fileext = ".zip")
 			url <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
 			download(url, tmp)
 			file <- unzip(tmp)
